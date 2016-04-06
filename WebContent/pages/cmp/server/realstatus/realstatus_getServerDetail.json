@@ -1,0 +1,11 @@
+{
+    "data": {
+        "id": 24,
+        "name": "运营中心管理",
+        "status" : "运行中",
+        "area" : "哈工大",
+        "gmt_create" : "2010-01-01",
+        "desc": "配置信息"
+    },
+    "success": true
+}
