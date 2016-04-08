@@ -1,0 +1,33 @@
+{
+    "total": 4,
+    "detal": [
+        {
+            "id": 0,
+            "father": -1,
+            "name": "10.1",
+            "type": "route",
+            "status":1
+        },
+        {
+            "id": 1,
+            "father": 0,
+            "name": "10.1.1",
+            "type": "server",
+            "status":1
+        },
+        {
+            "id": 2,
+            "father": 1,
+            "name": "10.1.2",
+            "type": "server",
+            "status":1
+        },
+        {
+            "id": 3,
+            "father": 2,
+            "name": "10.1.1.1",
+            "type": "server",
+            "status":1
+        }
+    ]
+}
