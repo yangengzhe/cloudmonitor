@@ -1,7 +1,7 @@
 //首页 index
-Ext.define('MYSERVER.view.MyappIndex', {
+Ext.define('MYSERVER.view.MyserverIndex', {
 	extend : 'Ext.container.Container',
-	alias : 'widget.myappindex',
+	alias : 'widget.myserverindex',
 	layout : 'border',
 	initComponent : function() {
 		var me = this;
@@ -13,16 +13,15 @@ Ext.define('MYSERVER.view.MyappIndex', {
 		var me = this;
 
 		me.queryField = Ext.create("Ext.form.Panel", {
-			id : 'searchMyapp_form',
+			id : 'searchServer_form',
 			name : 'queryFieldForm',
 			region : 'north',
-			height : 100,
+			height : 80,
 			bodyStyle : 'padding :5 5 5 5 ',
 
 			defaults : {
 				labelWidth : 60,
-				//padding : '15 100 10',
-				 margin: '20 5 20 50',
+				padding : '15 100 10',
 				columnWidth : 0.4,// 以25%的宽度赋给每个组件
 				xtype : 'textfield',
 				labelAlign : 'center',
@@ -32,32 +31,29 @@ Ext.define('MYSERVER.view.MyappIndex', {
 				xtype : 'button',
 				text : wake.TEXT.query,
 				iconCls : wake.CSS.queryImage,
-				id : "searchMyapp"
+				id : "searchServer"
 			}, "-", {
 				xtype : 'button',
 				text : wake.TEXT.clear,
 				iconCls : wake.CSS.resetImage,
-				id : "resetSearchMyapp"
+				id : "resetSearchServer"
 			}],
 			layout : {
 				type : 'table',
 				columns : 2
 			},
-			items : [{fieldLabel: '所在地区',
-				name:'serverArea',
+			items : [{fieldLabel: '节点',
+				name:'nodeName',
 				xtype:'wakecombobox',
-				dictUrl:'com.ices.csp.common.enumitem.cloudapp.CloudAppState',
-				id:'serverArea',
-				text:""}
-			,{
-				fieldLabel : '根据IP搜索',
-				name : 'serverIP',
-				id : 'serverIP',
+				dictUrl:'com.ices.csp.node.domain.Node.findAll',
+				id:'searchList_node',
+				text:""},{
+				fieldLabel : '服务器名称',
+				name : 'serverName',
+				id : 'serverName',
 				xtype : 'textfield',
 				text : null,
-				align : "center",
-				//colspan:2,
-				//width : 300
+				align : "center"
 			}]
 		});
 		return me.queryField;
@@ -66,32 +62,28 @@ Ext.define('MYSERVER.view.MyappIndex', {
 		var me = this;
 
 		me.show = Ext.create("Ext.form.Panel", {
-			id : "myapp_show",
-			name : 'myappShow',
+			id : "defineServer_show",
+			name : 'ServerShow',
 			region : 'center',
 			height : 200,
 			labelAlign : 'right',
 			tbar : [{
 				xtype : 'button',
-				text : '上传',
-				id : "myappup",
+				text : '增加',
+				id : "addServer",
+				iconCls : wake.CSS.addImage
+			}, "-", {
+				xtype : 'button',
+				text : '编辑',
+				id : "updateServer",
 				iconCls : wake.CSS.editImage
 			}, "-", {
 				xtype : 'button',
-				text : '部署',
-				id : "myappdown",
-				iconCls : wake.CSS.editImage
-			}, "-", {
-				xtype : 'button',
-				text : '卸载',
-				id : "myappshut",
-				iconCls : wake.CSS.editImage
-			}, "-", {
-				xtype : 'button',
-				text : '显示我的全部云应用',
-				id : "showAllMyapp",
-				iconCls : wake.CSS.queryImage
+				text : '删除',
+				id : "deleteServer",
+				iconCls : wake.CSS.deleteImage
 			}]
+
 			,
 			defaults : {
 				labelWidth : 60,
@@ -106,41 +98,6 @@ Ext.define('MYSERVER.view.MyappIndex', {
 		});
 		return me.show;
 	},
-	createAppGrid : function() {
-		var me = this;
-		var paging = Ext.create('Wake.toolbar.Paging', {
-			name : 'gridPagingBar',
-			displayInfo : true,
-			everySize : 15
-		});
-		var sm = Ext.create('Ext.selection.CheckboxModel', {
-			mode : "MULTI"
-		});
-		me.myappGrid = Ext.create('Wake.grid.Panel', {
-			id : 'myappGrid',
-			name : 'myappGrid',
-			region : 'south',
-			height : 200,
-			store : Ext.create("MYSERVER.store.ServerStore"),
-			selModel : sm,
-			frame : false,
-
-			columns:[
-	    		    {xtype: 'rownumberer',width: 35,sortable: false ,header:'序号',hidden:true}
-	    		    ,{dataIndex:'id',header:'id',width:50,sortable:true,hidden:true}
-	    		    ,{dataIndex:'name',header:'云应用名称',width:100,sortable:true,editor:{xtype:'textfield'}}
-	    		    ,{dataIndex:'version',header:'版本',width:75,sortable:true,editor:{xtype:'textfield'}}
-	    		    ,{dataIndex:'state',header:'状态',width:50,sortable:true,editor:{xtype:'textfield'}}
-	    		    ,{dataIndex:'type',header:'访问方式',width:75,sortable:true,editor:{xtype:'textfield'}}
-	    		    ,{dataIndex:'url',header:'URL',width:200,sortable:true,editor:{xtype:'textfield'}}
-	    		    ,{dataIndex:'registerTime',header:'注册时间',width:150,sortable:true,editor:{xtype:'textfield'}}
-	    		    ,{dataIndex:'beginTime',header:'开始时间',width:150,sortable:true,editor:{xtype:'textfield'}}
-	    		    ,{dataIndex:'endTime',header:'结束时间',width:150,sortable:true,editor:{xtype:'textfield'}}
-	    		],
-			bbar : paging
-		});
-		return me.myappGrid;
-	},
 	createShowServerGrid : function() {
 		var me = this;
 		var paging = Ext.create('Wake.toolbar.Paging', {
@@ -151,12 +108,12 @@ Ext.define('MYSERVER.view.MyappIndex', {
 		var sm = Ext.create('Ext.selection.CheckboxModel', {
 			mode : "MULTI"
 		});
-		me.myappGrid = Ext.create('Wake.grid.Panel', {
-			id : 'myappGrid',
-			name : 'myappGrid',
+		me.myserverGrid = Ext.create('Wake.grid.Panel', {
+			id : 'myserverGrid',
+			name : 'myserverGrid',
 			region : 'south',
 			height : 200,
-			store : Ext.create("MYSERVER.store.ServerStore"),
+			store : Ext.create("MYSERVER.store.MyserverStore"),
 			selModel : sm,
 			frame : false,
 
@@ -203,20 +160,6 @@ Ext.define('MYSERVER.view.MyappIndex', {
 					xtype : 'textfield'
 				}
 			},{
-				dataIndex : 'type',
-				header : '服务器类型',
-				width : 150,
-				editor : {
-					xtype : 'textfield'
-				}
-			},{
-				dataIndex : 'flag',
-				header : '是否虚拟化',
-				width : 150,
-				editor : {
-					xtype : 'textfield'
-				}
-			},{
 				dataIndex : 'vpaltform',
 				header : '虚拟化平台',
 				width : 150,
@@ -232,7 +175,28 @@ Ext.define('MYSERVER.view.MyappIndex', {
 				}
 			},{
 				dataIndex : 'user',
-				header : '登录名',
+				header : 'CPU',
+				width : 150,
+				editor : {
+					xtype : 'textfield'
+				}
+			},{
+				dataIndex : 'user',
+				header : '内存',
+				width : 150,
+				editor : {
+					xtype : 'textfield'
+				}
+			},{
+				dataIndex : 'user',
+				header : '网络带宽',
+				width : 150,
+				editor : {
+					xtype : 'textfield'
+				}
+			},{
+				dataIndex : 'user',
+				header : '备注',
 				width : 150,
 				editor : {
 					xtype : 'textfield'
@@ -240,6 +204,6 @@ Ext.define('MYSERVER.view.MyappIndex', {
 			}],
 			bbar : paging
 		});
-		return me.myappGrid;
+		return me.myserverGrid;
 	}
 });

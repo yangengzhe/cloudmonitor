@@ -2,7 +2,7 @@
  * 
  */
 
-Ext.define('MYSERVER.model.ServerModel',{
+Ext.define('MYSERVER.model.MyserverModel',{
 	extend: 'Ext.data.Model',
 	fields:[
 		{name : 'id',type:'int'},

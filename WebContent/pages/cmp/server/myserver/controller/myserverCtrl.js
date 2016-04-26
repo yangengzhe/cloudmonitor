@@ -1,312 +1,92 @@
 /**
  * 
  */
-var path = "register/";// 资源请求路径
+var path = "server/";// 资源请求路径
 var myappData;
 var count = 1;
-Ext.define('MYSERVER.controller.MyappCtrl', {
+Ext.define('MYSERVER.controller.MyserverCtrl', {
 	extend : 'Ext.app.Controller',
-	views : ['MyappIndex','MyappFrame','MyappInfo','MyappWeb','MyappDB'],// 声明该控制层要用到的view
-	stores : ['MyappStore','ServerStore'],// 声明该控制层要用到的store
+	views : ['MyserverIndex','AddServer'],// 声明该控制层要用到的view
+	stores : ['MyserverStore'],// 声明该控制层要用到的store
 	init : function() {
 		this.control({
+			'#searchServer' : {
+				click : this.doSearchServer//检索
+			},
+			'#resetSearchServer' : {
+				click : this.doResetSearchServer//清空查询
+			},
 			'#showAllMyapp' : {
-				click : this.doQuery//显示所有
+				click : this.doQueryServer//显示所有
 			},
-			'#searchMyapp' : {
-				click : this.dosearchMyapp//查询
+			'#addServer' : {
+				click : this.doaddServer//新增
 			},
-			'#resetSearchMyapp' : {
-				click : this.doresetSearchMyapp//清空查询
+			'#updateServer' : {
+				click : this.doUpdateServer//编辑
 			},
-			'#closeConfig' : {
-				click : this.doClose
+			'#deleteServer' : {
+				click : this.dodeleteServer//删除
 			},
-
-			'#myappup' : {
-				click: this.domyappup//上传功能
+			//添加应用窗口的按钮
+			'#commitServer' : {
+				click : this.doCommitServer//提交
 			},
-			'#myappdown' : {
-				click : this.domyappdown//部署功能有待开发
+			'#resetServer' : {
+				click : this.doReset//重置
 			},
-			'#myappshut' : {
-				click : this.domyappshut//卸载功能有待开发
-			},
-			'#updatedb' : {
-				click : this.doupdatedb//修改数据库密码
-			},
-			'#codeUpload':{
-				change: this.docodeUpload			
-			},
-			'#pictureUpload':{
-				change: this.dopictureUpload			
-			},
-			'#docUpload':{
-				change: this.dodocUpload			
-			},
-			'#dbfileUpload':{
-				change: this.dodbfileUpload			
+			'#closeServer' : {
+				click : this.doClose//关闭
 			}
 		});
 	},
-	dodbfileUpload : function(){
-		var form = Ext.getCmp('dbfileForm').getForm();
-		webappid = Ext.getCmp('id4').getValue();
-		filePath = Ext.getCmp('dbfileUpload').getValue();//保存的路径
-		var regxImage =  /.+(.SQL|.sql)$/i;   
-		if(filePath != null){
-			if(!regxImage.test(filePath)){
-				 Ext.Msg.alert('提示','仅允许的格式：sql');
-				return;
-			}
-		}
-		if(form.isValid()){
-           form.submit({//zzy,2015.09.29
-                url:  restPath + 'register/uploaddbfile'+ "?webappid="+ webappid,
-                waitMsg: '正在上传',
-                timeout: 10000,
-                success: function(fp, o) {
-                	if(o.result.success){
-	                	//Ext.getCmp('imagePath').setValue(o.result.result);
-	                	wake.showMessage('上传成功');
-	                	Ext.getCmp('dbfileUpload').setRawValue(filePath);
-                	}else{
-                		 alert('上传失败'+o.result.result);
-                	}
-                },
-                failure: function(fp, o) {
-                    alert('错误'+ o.result.result);
-                }
-            });
-	    }
-	},
-	dodocUpload : function(){
-		var form = Ext.getCmp('docForm').getForm();
-		webappid = Ext.getCmp('id2').getValue();
-		filePath = Ext.getCmp('docUpload').getValue();//保存的路径
-		var regxImage =  /.+(.DOC|.doc|.DOCX|.docx|.TXT|.txt|.WPS|.wps|.PDF|.pdf)$/i;   
-		if(filePath != null){
-			if(!regxImage.test(filePath)){
-				 Ext.Msg.alert('提示','仅允许的文档格式：doc、docx、txt、wps、pdf');
-				return;
-			}
-		}
-		if(form.isValid()){
-           form.submit({//zzy,2015.09.29
-                url:  restPath + 'register/uploaddocument'+ "?webappid="+ webappid,
-                waitMsg: '正在上传',
-                timeout: 10000,
-                success: function(fp, o) {
-                	if(o.result.success){
-	                	//Ext.getCmp('imagePath').setValue(o.result.result);
-	                	wake.showMessage('上传成功');
-	                	Ext.getCmp('docUpload').setRawValue(filePath);
-                	}else{
-                		 alert('上传失败'+o.result.result);
-                	}
-                },
-                failure: function(fp, o) {
-                    alert('错误'+ o.result.result);
-                }
-            });
-	    }
-	},
-	dopictureUpload : function(){
-		var form = Ext.getCmp('pictureForm').getForm();
-		webappid = Ext.getCmp('id2').getValue();
-		filePath = Ext.getCmp('pictureUpload').getValue();//保存的路径
-		var regxImage =  /.+(.JPEG|.jpeg|.JPG|.jpg|.GIF|.gif|.BMP|.bmp|.PNG|.png)$/i;   
-		if(filePath != null){
-			if(!regxImage.test(filePath)){
-				 Ext.Msg.alert('提示','仅允许的图片格式：jpg、gif、bmp、jpeg、png');
-				return;
-			}
-		}
-		if(form.isValid()){
-           form.submit({//zzy,2015.09.29
-                url:  restPath + 'register/uploadpicture'+ "?webappid="+ webappid,
-                waitMsg: '正在上传',
-                timeout: 10000,
-                success: function(fp, o) {
-                	if(o.result.success){
-	                	//Ext.getCmp('imagePath').setValue(o.result.result);
-	                	wake.showMessage('上传成功');
-	                	Ext.getCmp('pictureUpload').setRawValue(filePath);
-                	}else{
-                		 alert('上传失败'+o.result.result);
-                	}
-                },
-                failure: function(fp, o) {
-                    alert('错误'+ o.result.result);
-                }
-            });
-	    }
-	},
-	docodeUpload : function(){
-		var form = Ext.getCmp('codeForm').getForm();
-		webappid = Ext.getCmp('id3').getValue();
-		filePath = Ext.getCmp('codeUpload').getValue();//保存的路径
-		var regxImage =  /.+(.war|.WAR|.txt|.TXT)$/i;   //设置允许的格式
-		if(filePath != null){
-			if(!regxImage.test(filePath)){
-				 Ext.Msg.alert('提示','仅允许的格式：war');
-				return;
-			}
-		}
-		if(form.isValid()){
-           form.submit({//zzy,2015.09.28
-                url:  restPath + 'register/uploadwebcode'+ "?webappid="+ webappid,
-                waitMsg: '正在上传',
-                timeout: 10000,
-                success: function(fp, o) {
-                	if(o.result.success){
-	                	//Ext.getCmp('imagePath').setValue(o.result.result);
-	                	wake.showMessage('上传成功');
-	                	Ext.getCmp('codeUpload').setRawValue(filePath);
-                	}else{
-                		 alert('上传失败'+o.result.result);
-                	}
-                },
-                failure: function(fp, o) {
-                    alert('错误'+ o.result.result);
-                }
-            });
-	    }
-	
-	},
-	doupdatedb : function(){
-		var password = Ext.getCmp('password4').getValue();
-		if (password=="")
+	doSearchServer : function() {
+		var serverIndex = Ext.getCmp('myserverIndex');
+		var serverName = Ext.getCmp('serverName').getValue();
+		var nodeName = Ext.getCmp('searchList_node').getValue();
+		if (serverName == ""&&nodeName == "")
 			return;
-		var savedata = Ext.getCmp('myappDBForm').getForm().getFieldValues();
-		//console.log(savedata);
+		var param = serverIndex.queryField.getForm().getFieldValues();
+		serverIndex.setLoading(true);
+		var myserverGrid = serverIndex.myserverGrid;
+		var url = restPath + path + "searchServer";//URL
+
 		wake.ajax({
 			contentType : 'application/json',// 声明提交的数据类型
 			dataType : 'json',// 声明请求的数据类型
-			type : "PUT",
-			url : restPath + "server/" + "changepw",
-			data : savedata,// 将js对象转化为json数据
-			timeout : 30000,// 30秒钟的查询超时
+			type : "POST",
+			url : url,
+			data : param,// 将js对象转化为json数据
+			timeout : 30000,
 			success : function(data) {
-				if (data.status == "error") {
-					Ext.Msg.alert('提示', '密码修改失败。');
-					wake.showMessage("密码修改失败");
-				} else {
-					Ext.Msg.alert('提示', '密码修改成功。');
-					wake.showMessage("密码修改成功");
-					var myappIndex = Ext.getCmp('myappIndex');
-					var myappGrid = myappIndex.myappGrid;
-					//console.log(myappData);
-					if(count==0){
-						 myappData = myappGrid.getSelectionModel().getSelection();
-						 ++count;
-					}	
-				// console.log(myappData);
-				 myappData[0].data.password = Ext.getCmp('password4').getValue();
-				 //console.log(myappData[0].data);
-					//var id = myappData[0].data.id;
-					
-					//console.log(id);
-					control.doQuery();
-					//control.doSclect(id);
-
-					//myappGrid.getSelectionModel().select(0,true);//选择某一行 
+				if (data) {
+					if (data.serverList.length == 0) {
+						Ext.Msg.alert('提示', '没有符合的结果！');
+						control.doQueryServer();
+					} else {
+						myserverGrid.getStore().loadData(data.serverList);// 加载表格数据
+					}
 				}
+				serverIndex.setLoading(false);// 关闭表格遮罩层
+
 			},
 			error : function() {// 发生异常时
-				Ext.Msg.alert('提示', '密码修改失败。');
-				wake.showMessage("密码修改失败");
+				wake.showMessage("查询失败");
+				serverIndex.setLoading(false);// 关闭表格遮罩层
 			}
 		});
 	},
-	domyappshut : function(){
-		Ext.Msg.alert('提示', '卸载功能有待开发。');
-		//myappGrid.getSelectionModel().select(0,true);//选择某一行 
+	doResetSearchServer : function() {
+		Ext.getCmp('searchServer_form').getForm().reset();
 	},
-	domyappdown : function(){
-		//Ext.Msg.alert('提示', '部署功能有待开发。');
-		//wake.downloadFile("WEB-INFO","C:\upload\document","20151002154826-paper.docx");
-//        form.submit({//zzy,2015.09.28
-//            url:  restPath + 'wakedownload/file'+ "?rootPath=" + Ext.String.escape("WEB-INFO")+ "&filePath=" + Ext.String.escape("C:\upload\document") + "&fileName="+ Ext.String.escape("20151002154826-paper.docx"),
-//            waitMsg: '正在....',
-//            timeout: 10000,
-//            success: function(fp, o) {
-//            	if(o.result.success){
-//                	//Ext.getCmp('imagePath').setValue(o.result.result);
-//                	wake.showMessage('上传成功');
-//                	Ext.getCmp('codeUpload').setRawValue(filePath);
-//            	}else{
-//            		 alert('上传失败'+o.result.result);
-//            	}
-//            },
-//            failure: function(fp, o) {
-//                alert('错误'+ o.result.result);
-//            }
-//        });
-		//var aaa="C:\\upload\\document";
-		//var url = restPath + "wakedownload/file"+ "?rootPath="+ Ext.JSON.encode(pagingBean);
-		var url = restPath + 'download/file'+ "?rootPath=" + "WEB-INFO" + "&filePath=" + "C:\\upload\\document"+"&fileName="+ "222.txt";
-		//var url = restPath + 'download/file'+ "?fileName="+ "222.txt";
-		// window.open('myapp.jsp?fileName=aaaa')
-		Ext.Ajax.request({   
-		    url: url,   
-		    success:function(res){ 
-		    	 console.log(res);
-		        var obj = res.responseText;   
-		        console.log(obj);//可以到火狐的firebug下面看看obj里面的结构   
-		        //加入getPath返回的json为{'path':'upload/abc.jpg'}   
-		        window.location.href=url;
-		       // window.location.href = obj.path;//这样就可以弹出下载对话框了   
-		    }   
-		}); 
-//		wake.ajax({
-//			contentType : 'application/json',// 声明提交的数据类型
-//			dataType : 'json',// 声明请求的数据类型
-//			type : "POST",
-//			url : url,
-//			timeout : 30000,// 30秒钟的查询超时
-//		      success:function(res){
-//		    	  console.log(res);
-//		    	//  downloadFile.do;
-//		           //var obj =Ext.decode(res.responseText);
-//		            //  window.location.href =obj.path;
-//		    	  
-//		      },
-//			error : function() {// 发生异常时
-//			}
-//		});
-	},
-	domyappup : function(){
-
-		var myappGrid = Ext.getCmp('myappGrid');
-
-		var sIds = myappGrid.getSelectionModel().getSelection().length;
-
-		if (sIds == 0) {
-			Ext.Msg.alert('提示', '请选中云应用。');
-			return;
-		}
-		if (sIds > 1) {
-			Ext.Msg.alert('提示', '请只选择一个云应用进行上传！');
-			return;
-		}
-		myappData = myappGrid.getSelectionModel().getSelection();
-			myappWin = Ext.widget('myappframe');
-			Ext.getCmp('myappInfoForm').loadRecord(myappData[0]);
-			//Ext.getCmp('number3').setValue(Ext.getCmp('number2').getValue());
-			//control.doserverName();
-	
-	},
-
-
-	doQuery : function() {
-		var myappIndex = Ext.getCmp('myappIndex');
+	doQueryServer : function() {
+		var serverIndex = Ext.getCmp('myserverIndex');
 		// 开启表格遮罩层
-		myappIndex.setLoading(true);
+		serverIndex.setLoading(true);
 		// 获取查询条件
-		var myappGrid = myappIndex.myappGrid;
-		var pagingBean = myappGrid.getPageBar().getPagingData();
-		var url = restPath + "server/findAllServer"+ "?paging="+ Ext.JSON.encode(pagingBean);
+		var myserverGrid = serverIndex.myserverGrid;
+		var pagingBean = myserverGrid.getPageBar().getPagingData();
+		var url = restPath + path + "findAllServer"+ "?paging="+ Ext.JSON.encode(pagingBean);
 		/** 组装请求对象，并调用框架的请求方法发送请求 */
 		wake.ajax({
 			contentType : 'application/json',// 声明提交的数据类型
@@ -316,68 +96,160 @@ Ext.define('MYSERVER.controller.MyappCtrl', {
 			timeout : 30000,// 30秒钟的查询超时
 			success : function(data) {
 				if (data) {
-					myappGrid.getStore().loadData(data.serverList);// 加载表格数据
-					myappGrid.getPageBar().setPagingData(data.pagingBean);// 加载分页数据
+					myserverGrid.getStore().loadData(data.serverList);// 加载表格数据
+					myserverGrid.getPageBar().setPagingData(data.pagingBean);// 加载分页数据
 				}
 				// 关闭遮罩 并提示
 				wake.showMessage("查询完毕");
-				myappIndex.setLoading(false);
+				serverIndex.setLoading(false);
 			},
 			error : function() {// 发生异常时
 				// 关闭表格遮罩层
-				myappIndex.setLoading(false);
+				serverIndex.setLoading(false);
 			}
 		});
 
 	},
-	dosearchMyapp : function() {
-		var myappIndex = Ext.getCmp('myappIndex');
-		var cloudappname = Ext.getCmp('cloudappname').getValue();
-		var cloudappstate = Ext.getCmp('cloudappstate').getValue();
-		if (cloudappname == ""&&cloudappstate == "")
+	doaddServer : function() {
+		serverWin = Ext.widget('addserver');
+	},
+	doUpdateServer : function() {
+		var serverIndex = Ext.getCmp('myserverIndex');
+		var serverGrid = Ext.getCmp('myserverGrid');
+
+		var sIds = serverGrid.getSelectionModel().getSelection().length;
+
+		if (sIds == 0) {
+			Ext.Msg.alert('提示', '请选中服务器。');
 			return;
-		var param = myappIndex.queryField.getForm().getFieldValues();
-		console.log(param);
-		myappIndex.setLoading(true);
-		var myappGrid = myappIndex.myappGrid;
-		var url = restPath + path + "searchmyapp";
+		}
+		if (sIds > 1) {
+			Ext.Msg.alert('提示', '请只选择一个服务器进行编辑！');
+			return;
+		}
+		var updateData = serverGrid.getSelectionModel().getSelection();
 
-		wake.ajax({
-			contentType : 'application/json',// 声明提交的数据类型
-			dataType : 'json',// 声明请求的数据类型
-			type : "POST",
-			url : url,
-			data : param,// 将js对象转化为json数据
-			path : {
-				'grid' : {// 校验用的表格配置
-					'com.ices.csp.cloudapp.dto.CloudAppDto2' : 'myappGrid'
-				}
-			},
-			timeout : 30000,
-			success : function(data) {
-				if (data) {
-					if (data.appList.length == 0) {
-						Ext.Msg.alert('提示', '没有符合的结果！');
-						control.doQuery();
-					} else {
-						myappGrid.getStore().loadData(data.appList);// 加载表格数据
+		serverWin = Ext.widget('addserver');
+		serverWin.setTitle('编辑服务器');
+		Ext.getCmp('serverForm').loadRecord(updateData[0]);
+	},
+	dodeleteServer : function() {
+		var serverIndex = Ext.getCmp('myserverIndex');
+		var serverGrid = Ext.getCmp('myserverGrid');
+		// 获取选中行IDs
+		var sIds = serverGrid.getSelectionModel().getSelection().length;
+
+		if (sIds == 0) {
+			Ext.Msg.alert('提示', '请选中服务器。');
+			return;
+		}
+		var deleteData = serverGrid.getSelectionModel().getSelection();
+		var deleteserverIds = "";
+		for (var i = 0; ln = deleteData.length, i < ln; i++) {
+			// content.push(deleteData[i].data.logiCorpName);
+			if (i == (deleteData.length - 1)) {
+				deleteserverIds = deleteserverIds + deleteData[i].data.id;
+			} else {
+				deleteserverIds = deleteserverIds + deleteData[i].data.id + ",";
+			}
+		}
+		Ext.Msg.confirm("提示", "确定删除所选择的服务器？", function(con) {
+			if (con == "yes") {
+				wake.ajax({
+					contentType : 'application/json',// 声明提交的数据类型
+					dataType : 'json',// 声明请求的数据类型
+					type : "POST",
+					url : restPath + path + "deleteServer",
+					data : deleteserverIds,// 将js对象转化为json数据
+					timeout : 30000,
+					success : function(data) {
+						wake.showMessage("删除成功");
+						serverIndex.setLoading(false);// 关闭表格遮罩层
+						control.doQueryServer();
+					},
+					error : function() {// 发生异常时
+						wake.showMessage("删除失败");
+						serverIndex.setLoading(false);// 关闭表格遮罩层
 					}
-				}
-				myappIndex.setLoading(false);// 关闭表格遮罩层
-
-			},
-			error : function() {// 发生异常时
-				wake.showMessage("查询失败");
-				myappIndex.setLoading(false);// 关闭表格遮罩层
+				});
 			}
 		});
+	},
+	//添加窗口的功能
+	doCommitServer : function(showMask) {
+		var proWin = Ext.ComponentQuery.query('addserver')[0];
+		var formValid = Ext.getCmp('serverForm').getForm().isValid();
+		if (!formValid)
+			return;
+		var serverId = Ext.getCmp('id').getValue();
+		var server = Ext.getCmp('serverForm').getForm().getFieldValues();
+		delete server["minuteDisplay1-inputEl"];
+		delete server["minuteDisplay2-inputEl"];
+		if (showMask !== false)
+			proWin.setLoading(true);// 开启表格遮罩层
+		if (serverId == "") {
+			wake.ajax({
+				contentType : 'application/json',// 声明提交的数据类型
+				dataType : 'json',// 声明请求的数据类型
+				type : "PUT",
+				url : restPath + path + "addServer",
+				data : server,// 将js对象转化为json数据
+				timeout : 30000,// 30秒钟的查询超时
+				success : function(data) {
+					if (data.status == "error") {
+						Ext.Msg.alert('提示', '已经存在相同的服务器编码！');
+						if (showMask !== false)
+							proWin.setLoading(false);// 关闭表格遮罩层
+					} else {
+						wake.showMessage("添加成功");
+						if (showMask !== false)
+							proWin.setLoading(false);// 关闭表格遮罩层
+						control.doQueryServer();
+						control.doClose();
+					}
+				},
+				error : function() {// 发生异常时
+					wake.showMessage("添加失败");
+					if (showMask !== false)
+						proWin.setLoading(false);// 关闭表格遮罩层
+				}
+			});
+		} else {
+			wake.ajax({
+				contentType : 'application/json',// 声明提交的数据类型
+				dataType : 'json',// 声明请求的数据类型
+				type : "POST",
+				url : restPath + path + "updateServer",
+				data : server,// 将js对象转化为json数据
+				timeout : 30000,// 30秒钟的查询超时
+				success : function(data) {
+					if (data.status == "error") {
+						Ext.Msg.alert('提示', '已经存在相同的服务器编码！');
+						if (showMask !== false)
+							proWin.setLoading(false);// 关闭表格遮罩层
+					} else {
+						wake.showMessage("修改成功");
+						if (showMask !== false)
+							proWin.setLoading(false);// 关闭表格遮罩层
+						control.doQueryServer();
+						control.doClose();
+					}
+				},
+				error : function() {// 发生异常时
+					wake.showMessage("修改失败");
+					if (showMask !== false)
+						proWin.setLoading(false);// 关闭表格遮罩层
+				}
+			});
+		}
+	},
+	doReset : function() {
+		var serverId = Ext.getCmp('id').getValue();
+		Ext.getCmp('serverForm').getForm().reset();
+		Ext.getCmp('id').setValue(serverId);
 	},
 	doClose : function() {
-		Ext.getCmp('configForm').getForm().reset();
-		configWin.close();
-	},
-	doresetSearchMyapp : function() {
-		Ext.getCmp('searchMyapp_form').getForm().reset();
+		Ext.getCmp('serverForm').getForm().reset();
+		serverWin.close();
 	}
-
 });
