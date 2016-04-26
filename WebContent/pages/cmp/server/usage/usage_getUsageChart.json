@@ -1,0 +1,13 @@
+{
+    "dataList": [
+        {
+        	"cpu_enable" : 8,
+        	"cpu" : 2,
+        	"mem_enable" : 32,
+            "mem": 4,
+            "net_enable" : 50,
+            "net" : 10,
+            "ip":"192.168.1.1"
+        }
+    ]
+}
