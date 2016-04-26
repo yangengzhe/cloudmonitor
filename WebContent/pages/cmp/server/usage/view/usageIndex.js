@@ -84,7 +84,7 @@ Ext.define('USAGE.view.usageIndex', {
 		var me = this;
 		me.show = Ext.create("Ext.form.Panel", {
 			id : "usage_chartsContent",
-			name : 'realstatusChartsContent',
+			name : 'usageChartsContent',
 			region : 'center',
 			labelAlign : 'right',
 			hidden:true,
@@ -97,116 +97,143 @@ Ext.define('USAGE.view.usageIndex', {
 			},
 			plain: true,
 			layout: "anchor",
-			items : [me.createLineChart_cpu(),me.createLineChart_mem(),me.createLineChart_net()]
+			items : [me.createChart_cpu(),me.createChart_mem(),me.createChart_net()]
 		});
 		return me.show;
 	},
-	//折线图
-	createLineChart_cpu : function() {
+	//柱状图
+	createChart_cpu : function() {
 		var me = this;
 		me.LineChart = Ext.create('Ext.chart.Chart', {
-			id:'realstatus_chart_cpu',
+			id:'usage_chart_cpu',
 			xtype: 'chart',
-			anchor: '100%, 33%',
-//			theme: 'Green',
-			store : 'statusChartStore',
+			animate: true,
+            title: 'CPU使用情况',
+			anchor: '95%, 30%',
+			insetPadding: 20,
+			store : 'usageChartStore',
 			axes: [
 			          {
-			              title: 'Temperature',
-			              type: 'Numeric',
+			              type: 'Category',
 			              position: 'left',
-			              fields: ['cpu'],
-			              minimum: 0,
-			              maximum: 100
+			              fields: ['ip']
 			          },
 			          {
-			              title: 'Time',
-			              type: 'Time',
+			              type: 'Numeric',
+			              title: 'CPU核数使用情况',
 			              position: 'bottom',
-			              fields: ['date'],
-			              groupBy: 'hour',
-			              dateFormat: 'ga'
+			              fields: ['cpu','cpu_enable']
 			          }
 			      ],
 			   series: [
 			               {
-			                   type: 'line',
-			                   xField: 'date',
-			                   yField: 'cpu'
+			                   type: 'bar',
+			                   tips: {
+                                   trackMouse: true,
+                                   width: '60px',
+                                   renderer: function(storeItem, item) {
+                                       this.setTitle(item.value[1]+ '个');
+                                   }
+                               },
+			                   xField: 'ip',
+			                   yField: ['cpu','cpu_enable'],
+			                   title:['已使用CPU核数','剩余CPU核数'],
+			                   stacked: true
 			               }
-			           ]
+			           ],
+			           legend: {
+                           position: 'right'
+                       }
 			});
 		return me.LineChart;
 	},
-	createLineChart_mem : function() {
+	createChart_mem : function() {
 		var me = this;
 		me.LineChart = Ext.create('Ext.chart.Chart', {
-			id:'realstatus_chart_mem',
+			id:'usage_chart_mem',
 			xtype: 'chart',
-			anchor: '100%, 33%',
-//			theme: 'Green',
-			store : 'statusChartStore',
+			animate: true,
+            title: '内存使用情况',
+			anchor: '95%, 30%',
+			insetPadding: 20,
+			store : 'usageChartStore',
 			axes: [
 			          {
-			              title: 'Temperature',
-			              type: 'Numeric',
+			              type: 'Category',
 			              position: 'left',
-			              fields: ['mem'],
-			              minimum: 0,
-			              maximum: 100
+			              fields: ['ip']
 			          },
 			          {
-			              title: 'Time',
-			              type: 'Time',
+			              type: 'Numeric',
+			              title: '内存使用情况',
 			              position: 'bottom',
-			              fields: ['date'],
-			              groupBy: 'hour',
-			              dateFormat: 'ga'
+			              fields: ['mem','mem_enable']
 			          }
 			      ],
 			   series: [
 			               {
-			                   type: 'line',
-			                   xField: 'date',
-			                   yField: 'mem'
+			                   type: 'bar',
+			                   tips: {
+                                   trackMouse: true,
+                                   width: '60px',
+                                   renderer: function(storeItem, item) {
+                                       this.setTitle(item.value[1]+ 'G');
+                                   }
+                               },
+			                   xField: 'ip',
+			                   yField: ['mem','mem_enable'],
+			                   title:['已使用内存容量','剩余内存容量'],
+			                   stacked: true
 			               }
-			           ]
+			           ],
+			           legend: {
+                           position: 'right'
+                       }
 			});
 		return me.LineChart;
 	},
-	createLineChart_net : function() {
+	createChart_net : function() {
 		var me = this;
 		me.LineChart = Ext.create('Ext.chart.Chart', {
-			id:'realstatus_chart_net',
+			id:'usage_chart_net',
 			xtype: 'chart',
-			anchor: '100%, 33%',
-//			theme: 'Green',
-			store : 'statusChartStore',
+			animate: true,
+            title: '网络使用情况',
+			anchor: '95%, 30%',
+			insetPadding: 20,
+			store : 'usageChartStore',
 			axes: [
 			          {
-			              title: 'Temperature',
-			              type: 'Numeric',
+			              type: 'Category',
 			              position: 'left',
-			              fields: ['net'],
-			              minimum: 0,
-			              maximum: 100
+			              fields: ['ip']
 			          },
 			          {
-			              title: 'Time',
-			              type: 'Time',
+			              type: 'Numeric',
+			              title: '网络带宽使用情况',
 			              position: 'bottom',
-			              fields: ['date'],
-			              groupBy: 'hour',
-			              dateFormat: 'ga'
+			              fields: ['net','net_enable']
 			          }
 			      ],
 			   series: [
 			               {
-			                   type: 'line',
-			                   xField: 'date',
-			                   yField: 'net'
+			                   type: 'bar',
+			                   tips: {
+                                   trackMouse: true,
+                                   width: '60px',
+                                   renderer: function(storeItem, item) {
+                                       this.setTitle(item.value[1]+ 'M');
+                                   }
+                               },
+			                   xField: 'ip',
+			                   yField: ['net','net_enable'],
+			                   title:['已使用网络带宽','剩余网络带宽'],
+			                   stacked: true
 			               }
-			           ]
+			           ],
+			           legend: {
+                           position: 'right'
+                       }
 			});
 		return me.LineChart;
 	}
