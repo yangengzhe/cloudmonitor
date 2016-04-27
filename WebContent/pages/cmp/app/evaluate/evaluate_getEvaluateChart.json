@@ -1,0 +1,44 @@
+{
+    "dataList": [
+        {
+        	"ResponseTime" : 10,
+            "Memory": 40,
+            "Net" : 50,
+            "Error" : 0,
+            "Thoughput" : 100.0,
+            "Concurrent": "10"
+        },
+        {
+        	"ResponseTime" : 20,
+            "Memory": 30,
+            "Net" : 50,
+            "Error" : 0,
+            "Thoughput" : 120.0,
+            "Concurrent": "20"
+        },
+        {
+        	"ResponseTime" : 10,
+            "Memory": 60,
+            "Net" : 10,
+            "Error" : 0.2,
+            "Thoughput" : 102.0,
+            "Concurrent": "30"
+        },
+        {
+        	"ResponseTime" : 30,
+            "Memory": 20,
+            "Net" : 30,
+            "Error" : 0.1,
+            "Thoughput" : 110.0,
+            "Concurrent": "50"
+        },
+        {
+        	"ResponseTime" : 80,
+            "Memory": 40,
+            "Net" : 50,
+            "Error" : 12.2,
+            "Thoughput" : 100.0,
+            "Concurrent": "100"
+        }
+    ]
+}

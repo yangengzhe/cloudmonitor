@@ -1,0 +1,38 @@
+{
+    "vmsList": [
+        {
+            "id": 1,
+            "serverid": 1,
+            "code": "1001",
+            "name": "哈工大ICES",
+            "state": "停机",
+            "ip": "172.26.123.1",
+            "cpu": "1001",
+            "mem": 4,
+            "disk": 2,
+            "bandwidth": 500,
+            "desc": "硬盘架规格"
+        },
+        {
+            "id": 2,
+            "serverid": 1,
+            "code": "1002",
+            "name": "哈工大ICES2",
+            "state": "停机",
+            "ip": "172.26.123.2",
+            "cpu": "1002",
+            "mem": 8,
+            "disk": 200,
+            "bandwidth": 500,
+            "desc": "规格"
+        }
+    ],
+    "pagingBean": {
+        "everySize": 15,
+        "currPage": 0,
+        "allNum": 4,
+        "sortData": "",
+        "start": 0,
+        "allPage": 1
+    }
+}

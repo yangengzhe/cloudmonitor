@@ -1,0 +1,28 @@
+{
+    "alertList": [
+        {
+            "id": 1,
+            "appid": 1,
+            "code": "1001",
+            "type": "未读",
+            "msg": "硬盘架规格",
+            "desc": "硬盘架规格"
+        },
+        {
+            "id": 2,
+            "appid": 1,
+            "code": "1002",
+            "type": "哈工大ICES2",
+            "msg": "规格",
+            "desc": "规格"
+        }
+    ],
+    "pagingBean": {
+        "everySize": 15,
+        "currPage": 0,
+        "allNum": 4,
+        "sortData": "",
+        "start": 0,
+        "allPage": 1
+    }
+}
