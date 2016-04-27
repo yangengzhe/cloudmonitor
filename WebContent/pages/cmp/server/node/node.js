@@ -12,7 +12,7 @@ Ext.application({
 		control = this.getController("NodeCtrl");
 		var viewPort = Ext.create('Ext.container.Viewport', {
 			border : 0,
-			layout : 'fit',
+			layout : 'fit',			
 			items : [{
 				id : 'nodeIndex',
 				xtype : 'nodeindex'

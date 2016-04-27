@@ -7,7 +7,9 @@ Ext.define('REALSTATUS.model.statusChartModel',{
 	fields:[
 		{name : 'cpu',type:'int'},
 		{name : 'mem',type:'int'},
-		{name : 'net',type:'int'},
-		{name : 'date',type: 'date', dateFormat: 'Y-m-d H:i'}
+		{name : 'net_upload',type:'int'},
+		{name : 'net_download',type:'int'},
+//		{name : 'date',type: 'date', dateFormat: 'Y-m-d H:i'}
+		{name : 'date',type: 'string'}
 	]
 })

@@ -3,32 +3,37 @@
         {
         	"cpu" : 80,
             "mem": 40,
-            "net" : 50,
-            "date": "2011-01-01 08:00"
+            "net_upload" : 50,
+            "net_download" : 250,
+            "date": "08:00"
         },
         {
             "cpu" : 30,
             "mem": 60,
-            "net" : 10,
-            "date": "2011-01-01 09:00"
+            "net_upload" : 10,
+            "net_download" : 150,
+            "date": "09:00"
         },
         {
             "cpu" : 60,
             "mem": 40,
-            "net" : 80,
-            "date": "2011-01-01 10:00"
+            "net_upload" : 80,
+            "net_download" : 1050,
+            "date": "10:00"
         },
         {
             "cpu" : 50,
             "mem": 40,
-            "net" : 80,
-            "date": "2011-01-01 11:00"
+            "net_upload" : 80,
+            "net_download" : 250,
+            "date": "11:00"
         },
         {
             "cpu" : 30,
             "mem": 30,
-            "net" : 50,
-            "date": "2011-01-01 12:00"
+            "net_upload" : 50,
+            "net_download" : 50,
+            "date": "12:00"
         }
     ]
 }
