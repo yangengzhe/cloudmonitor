@@ -160,7 +160,7 @@ Ext.define('MYSERVER.view.MyserverIndex', {
 					xtype : 'textfield'
 				}
 			},{
-				dataIndex : 'vpaltform',
+				dataIndex : 'vplatform',
 				header : '虚拟化平台',
 				width : 150,
 				editor : {
@@ -174,28 +174,28 @@ Ext.define('MYSERVER.view.MyserverIndex', {
 					xtype : 'textfield'
 				}
 			},{
-				dataIndex : 'user',
+				dataIndex : 'cpu',
 				header : 'CPU',
 				width : 150,
 				editor : {
 					xtype : 'textfield'
 				}
 			},{
-				dataIndex : 'user',
+				dataIndex : 'memory',
 				header : '内存',
 				width : 150,
 				editor : {
 					xtype : 'textfield'
 				}
 			},{
-				dataIndex : 'user',
+				dataIndex : 'bandwidth',
 				header : '网络带宽',
 				width : 150,
 				editor : {
 					xtype : 'textfield'
 				}
 			},{
-				dataIndex : 'user',
+				dataIndex : 'desc',
 				header : '备注',
 				width : 150,
 				editor : {

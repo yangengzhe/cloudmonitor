@@ -51,6 +51,15 @@ Ext.define('NODE.controller.NodeCtrl', {
 			},
 			'#updateRoute' : {
 				click : this.doUpdateRoute//编辑
+			},
+			'#commitRoute' : {
+				click : this.doCommitRoute
+			},
+			'#resetRoute' : {
+				click : this.doResetRoute
+			},
+			'#closeRoute' : {
+				click : this.doCloseRoute
 			}
 		});
 	},
@@ -286,8 +295,8 @@ Ext.define('NODE.controller.NodeCtrl', {
 		// 获取查询条件
 		var nodeGrid = nodeIndex.routeGrid;
 		var pagingBean = nodeGrid.getPageBar().getPagingData();
-//		var url = restPath + path + "findAllNode"+ "?paging="+ Ext.JSON.encode(pagingBean);
-		var url = "http://localhost:8080/cloudplatform//pages/cmp/server/node/getRoute_routes"+nodeId+".json"
+		var url = restPath + "route/" + "findAllRoute"+ "?paging="+ Ext.JSON.encode(pagingBean) +"&superroute=" +nodeId;
+//		var url = "http://localhost:8080/cloudplatform//pages/cmp/server/node/getRoute_routes"+".json"
 		/** 组装请求对象，并调用框架的请求方法发送请求 */
 		wake.ajax({
 			contentType : 'application/json',// 声明提交的数据类型
@@ -330,12 +339,12 @@ Ext.define('NODE.controller.NodeCtrl', {
 			}
 			var updateData = nodeGrid.getSelectionModel().getSelection();
 
-			nodeWin = Ext.widget('addroute');
-			nodeWin.setTitle('编辑路由');
+			routeWin = Ext.widget('addroute');
+			routeWin.setTitle('编辑路由');
 			Ext.getCmp('routeForm').loadRecord(updateData[0]);
 		},
 		doaddRoute : function() {
-			nodeWin = Ext.widget('addroute');
+			routeWin = Ext.widget('addroute');
 		},
 		dodeleteRoute : function() {
 			var nodeIndex = Ext.getCmp('nodeIndex');
@@ -357,19 +366,22 @@ Ext.define('NODE.controller.NodeCtrl', {
 					deletenodeIds = deletenodeIds + deleteData[i].data.id + ",";
 				}
 			}
+			var url = restPath + "route/" + "deleteRoute";
 			Ext.Msg.confirm("提示", "确定删除所选择的节点？", function(con) {
 				if (con == "yes") {
 					wake.ajax({
 						contentType : 'application/json',// 声明提交的数据类型
 						dataType : 'json',// 声明请求的数据类型
 						type : "POST",
-						url : restPath + path + "deleteNode",
+						url : url,
+						
 						data : deletenodeIds,// 将js对象转化为json数据
 						timeout : 30000,
 						success : function(data) {
 							wake.showMessage("删除成功");
 							nodeIndex.setLoading(false);// 关闭表格遮罩层
-							control.doQueryRoute();
+//							control.doQueryRoute(1);
+							Ext.getCmp('nodeIndex').routeGrid.getStore().removeAll();
 						},
 						error : function() {// 发生异常时
 							wake.showMessage("删除失败");
@@ -378,5 +390,81 @@ Ext.define('NODE.controller.NodeCtrl', {
 					});
 				}
 			});
+		},
+		doCommitRoute : function(showMask) {
+			var proWin = Ext.ComponentQuery.query('addroute')[0];
+			var formValid = Ext.getCmp('routeForm').getForm().isValid();
+			if (!formValid)
+				return;
+			var routeId = Ext.getCmp('id').getValue();
+			var route = Ext.getCmp('routeForm').getForm().getFieldValues();
+			if (showMask !== false)
+				proWin.setLoading(true);// 开启表格遮罩层
+			if (routeId == "") {
+				wake.ajax({
+					contentType : 'application/json',// 声明提交的数据类型
+					dataType : 'json',// 声明请求的数据类型
+					type : "PUT",
+					url : restPath + "route/" + "addRoute",
+					data : route,// 将js对象转化为json数据
+					timeout : 30000,// 30秒钟的查询超时
+					success : function(data) {
+						if (data.status == "error") {
+							Ext.Msg.alert('提示', '已经存在相同的节点编码！');
+							if (showMask !== false)
+								proWin.setLoading(false);// 关闭表格遮罩层
+						} else {
+							wake.showMessage("添加成功");
+							if (showMask !== false)
+								proWin.setLoading(false);// 关闭表格遮罩层
+//							control.doQueryRoute(0);
+							Ext.getCmp('nodeIndex').routeGrid.getStore().removeAll();
+							control.doCloseRoute();
+						}
+					},
+					error : function() {// 发生异常时
+						wake.showMessage("添加失败");
+						if (showMask !== false)
+							proWin.setLoading(false);// 关闭表格遮罩层
+					}
+				});
+			} else {
+				wake.ajax({
+					contentType : 'application/json',// 声明提交的数据类型
+					dataType : 'json',// 声明请求的数据类型
+					type : "POST",
+					url : restPath + "route/" + "updateRoute",
+					data : route,// 将js对象转化为json数据
+					timeout : 30000,// 30秒钟的查询超时
+					success : function(data) {
+						if (data.status == "error") {
+							Ext.Msg.alert('提示', '已经存在相同的节点编码！');
+							if (showMask !== false)
+								proWin.setLoading(false);// 关闭表格遮罩层
+						} else {
+							wake.showMessage("修改成功");
+							if (showMask !== false)
+								proWin.setLoading(false);// 关闭表格遮罩层
+//							control.doQueryRoute(0);
+							Ext.getCmp('nodeIndex').routeGrid.getStore().removeAll();
+							control.doCloseRoute();
+						}
+					},
+					error : function() {// 发生异常时
+						wake.showMessage("修改失败");
+						if (showMask !== false)
+							proWin.setLoading(false);// 关闭表格遮罩层
+					}
+				});
+			}
+		},
+		doResetRoute : function() {
+			var routeId = Ext.getCmp('id').getValue();
+			Ext.getCmp('routeForm').getForm().reset();
+			Ext.getCmp('id').setValue(routeId);
+		},
+		doCloseRoute : function() {
+			Ext.getCmp('routeForm').getForm().reset();
+			routeWin.close();
 		}
 });

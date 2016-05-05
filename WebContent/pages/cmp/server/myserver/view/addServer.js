@@ -119,7 +119,7 @@ Ext.define('MYSERVER.view.AddServer', {
 						xtype : 'wakecombobox',
 						dictUrl : 'com.ices.csp.node.domain.Node.findAll'
 					}, {
-						name : 'vpaltform',
+						name : 'vplatform',
 						fieldLabel : '虚拟化平台'
 					} ]
 				}, {
@@ -152,27 +152,13 @@ Ext.define('MYSERVER.view.AddServer', {
 						labelWidth : 80
 					},
 					items : [ {
-						name : 'user',
-						fieldLabel : '上一级类型'
+						name : 'superroute',
+						fieldLabel : '所在路由编号'
 					}, {
-						name : 'password',
-						fieldLabel : '上一级编号'
-					} ]
-				}, {
-					xtype : 'fieldcontainer',
-					layout : 'column',
-					combineErrors : true,
-					defaultType : 'textfield',
-					defaults : {
-						columnWidth : 1,
-						labelAlign : 'right',
-						labelWidth : 80
-					},
-					items : [ {
 						name : 'desc',
 						fieldLabel : '说明'
 					} ]
-				} ]
+				}]
 			}, {
 				xtype : 'fieldset',
 				title : '网络',
@@ -191,13 +177,13 @@ Ext.define('MYSERVER.view.AddServer', {
 						labelWidth : 80
 					},
 					items : [ {
-						name : 'netCarAcount',
+						name : 'memory',
 						fieldLabel : '内存容量',
 						columnWidth : 0.47
 					}, {
 						xtype : 'displayfield',
 						id : 'minuteDisplay1',
-						value : "G",
+						value : "M",
 						columnWidth : 0.03
 					}, {
 						name : 'bandwidth',
@@ -220,8 +206,8 @@ Ext.define('MYSERVER.view.AddServer', {
 						labelWidth : 80
 					},
 					items : [ {
-						name : 'producer',
-						fieldLabel : 'CPU型号'
+						name : 'cpu',
+						fieldLabel : 'CPU核数'
 					} ]
 				} ]
 			} ]
