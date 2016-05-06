@@ -1,7 +1,7 @@
 /**
  * 
  */
-var path = "register/";// 资源请求路径
+var path = "status/";// 资源请求路径
 var myappData;
 var count = 1;
 Ext.define('REALSTATUS.controller.realstatusCtrl', {
@@ -65,7 +65,8 @@ Ext.define('REALSTATUS.controller.realstatusCtrl', {
 			var chartNET = Ext.getCmp('realstatus_chart_net');
 			// var serviceId = record.get("serviceId");
 			// if(serviceId!=null && serviceId!=""){
-			var url = "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getRealstatusChart.json";
+			var url = restPath + path + "findAllStatus?id=1";
+//			var url = "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getRealstatusChart.json";
 			wake.ajax({
 						contentType : 'application/json',// 声明提交的数据类型
 						dataType : 'json',// 声明请求的数据类型
@@ -74,9 +75,9 @@ Ext.define('REALSTATUS.controller.realstatusCtrl', {
 						timeout : 30000,// 30秒钟的查询超时
 						success : function(data) {
 							if (data) {
-								chartCPU.getStore().loadData(data.dataList);// 加载表格数据
-								chartMEM.getStore().loadData(data.dataList);// 加载表格数据
-								chartNET.getStore().loadData(data.dataList);// 加载表格数据
+								chartCPU.getStore().loadData(data.statusList);// 加载表格数据
+								chartMEM.getStore().loadData(data.statusList);// 加载表格数据
+								chartNET.getStore().loadData(data.statusList);// 加载表格数据
 							}
 							wake.showMessage(wake.TEXT.querySuccess);
 						},
