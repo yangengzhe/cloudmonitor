@@ -1,7 +1,7 @@
 /**
  * 
  */
-var path = "register/";// 资源请求路径
+var path = "topo/";// 资源请求路径
 var myappData;
 var count = 1;
 Ext.define('SERVER.controller.serverCtrl', {
@@ -411,7 +411,8 @@ Ext.define('SERVER.controller.serverCtrl', {
 					dataType : 'json',// 声明请求的数据类型
 					type : "GET",
 //					url : webRoot + 'rest/webserver/testfunction?menuId='	+ node.get("id"),
-					url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_menu_getChildrenMenu.json",
+//					url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_menu_getChildrenMenu.json",
+					url : restPath + "cmp_menu/" + "getMenuChildren?id="+node.get("id"),
 					timeout : 30000,// 30秒钟的查询超时
 					success : function(data) {
 						if (!Ext.isEmpty(data)) {
@@ -427,11 +428,12 @@ Ext.define('SERVER.controller.serverCtrl', {
 		 * 点击查询菜单
 		 */
 	    doMenuTreeItemclick:function(view,record,item,index,e){
-	    	
+	    	createChartsContent.createGraph();
 	    	if(record.get("leaf")){
 	    		Ext.getCmp('server_detailForm').getForm().load({
 //	    			url:restPath+'menu/edit/'+record.get("id"),
-		    		url:"http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getServerDetail.json",
+//		    		url:"http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getServerDetail.json",
+	    			url : restPath + "status/" + "serverDetail?id="+record.get("id"),
 	    			method:'GET',
 	    	        success : function() {
 	    	        	

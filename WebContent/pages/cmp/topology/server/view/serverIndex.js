@@ -257,8 +257,8 @@ Ext.define('SERVER.view.serverIndex', {
 				dataType : 'json',// 声明请求的数据类型
 				type : "GET",
 				async:false,
-//				url : webRoot + 'rest/webserver/testfunction?menuId='	+ node.get("id"),
-				url : "http://localhost:8080/cloudplatform//pages/cmp/topology/server/topo.json",
+//				url : "http://localhost:8080/cloudplatform//pages/cmp/topology/server/topo.json",
+				url : restPath + "topo/" + "getTopoServer?id=1",
 				timeout : 30000,// 30秒钟的查询超时
 				success : function(data) {
 					if (!Ext.isEmpty(data)) {

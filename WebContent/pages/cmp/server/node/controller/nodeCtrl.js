@@ -295,7 +295,7 @@ Ext.define('NODE.controller.NodeCtrl', {
 		// 获取查询条件
 		var nodeGrid = nodeIndex.routeGrid;
 		var pagingBean = nodeGrid.getPageBar().getPagingData();
-		var url = restPath + "route/" + "findAllRoute"+ "?paging="+ Ext.JSON.encode(pagingBean) +"&superroute=" +nodeId;
+		var url = restPath + "route/" + "findAllRoute"+ "?paging="+ Ext.JSON.encode(pagingBean) +"&nodeid=" +nodeId;
 //		var url = "http://localhost:8080/cloudplatform//pages/cmp/server/node/getRoute_routes"+".json"
 		/** 组装请求对象，并调用框架的请求方法发送请求 */
 		wake.ajax({

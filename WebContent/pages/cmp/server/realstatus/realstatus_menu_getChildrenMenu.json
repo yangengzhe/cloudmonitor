@@ -2,71 +2,31 @@
     {
         "id": 23,
         "name": "广州",
-        "desc": "",
-        "url": null,
         "leaf": false,
-        "displayOrder": 1,
-        "parentId": null,
-        "parentName": null,
-        "serviceId": null,
-        "code": "1",
-        "menuType": "运营中心管理菜单",
-        "idSeq": ".1."
+        "serviceId": 0
     },
     {
         "id": 27,
         "name": "上海",
-        "desc": "",
-        "url": null,
         "leaf": false,
-        "displayOrder": 2,
-        "parentId": null,
-        "parentName": null,
-        "serviceId": null,
-        "code": "5",
-        "menuType": "服务中心管理菜单",
-        "idSeq": ".2."
+        "serviceId": 0
     },
     {
         "id": 207,
         "name": "192.158.1.2",
-        "desc": "",
-        "url": null,
         "leaf": true,
-        "displayOrder": 3,
-        "parentId": 23,
-        "parentName": "广州",
-        "serviceId": null,
-        "code": "10",
-        "menuType": "服务中心业务菜单",
-        "idSeq": ".207."
+        "serviceId": 1
     },
     {
         "id": 238,
         "name": "192.153.2.3",
-        "desc": "",
-        "url": null,
         "leaf": true,
-        "displayOrder": 4,
-        "parentId": 27,
-        "parentName": "上海",
-        "serviceId": null,
-        "code": "11",
-        "menuType": "服务中心业务菜单",
-        "idSeq": ".238."
+        "serviceId": 2
     },
        {
         "id": 247,
         "name": "183.42.12.4",
-        "desc": "",
-        "url": null,
         "leaf": true,
-        "displayOrder": 1,
-        "parentId": 27,
-        "parentName": "上海",
-        "serviceId": null,
-        "code": "11.2.3",
-        "menuType": null,
-        "idSeq": ".238.240.247."
+        "serviceId": 3
     }
 ]

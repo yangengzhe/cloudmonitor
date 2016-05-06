@@ -98,13 +98,13 @@ Ext
 								maxWidth : 250,
 								id : 'realstatus_detailForm_area'
 							}, {
-								fieldLabel : '创建时间',
+								fieldLabel : '虚拟化平台',
 								name : 'gmt_create',
 								minWidth : 100,
 								maxWidth : 250,
 								id : 'realstatus_detailForm_gmtCreate'
 							}, {
-								fieldLabel : '配置信息',
+								fieldLabel : '说明信息',
 								name : 'desc',
 								width : 480,
 								colspan : 2,

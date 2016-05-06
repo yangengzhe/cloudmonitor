@@ -17,17 +17,17 @@
         },
         {
             "id": 2,
-            "father": 1,
+            "father": 0,
             "name": "10.1.2",
             "type": "server",
             "status":1
         },
         {
             "id": 3,
-            "father": 2,
+            "father": 0,
             "name": "10.1.1.1",
             "type": "server",
-            "status":1
+            "status":0
         }
     ]
 }

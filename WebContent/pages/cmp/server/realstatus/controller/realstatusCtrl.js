@@ -29,7 +29,7 @@ Ext.define('REALSTATUS.controller.realstatusCtrl', {
 			type : "GET",
 			// url : webRoot + 'rest/webserver/testfunction?menuId=' +
 			// node.get("id"),
-			url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_menu_getChildrenMenu.json",
+			url : restPath + "cmp_menu/" + "getMenuChildren?id="+node.get("id"),
 			timeout : 30000,// 30秒钟的查询超时
 			success : function(data) {
 				if (!Ext.isEmpty(data)) {
@@ -45,11 +45,11 @@ Ext.define('REALSTATUS.controller.realstatusCtrl', {
 	 * 点击查询菜单
 	 */
 	doMenuTreeItemclick : function(view, record, item, index, e) {
-
+		
 		if (record.get("leaf")) {
 			Ext.getCmp('realstatus_detailForm').getForm().load({
 				// url:restPath+'menu/edit/'+record.get("id"),
-				url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getServerDetail.json",
+				url : restPath + path + "serverDetail?id="+record.get("id"),
 				method : 'GET',
 				success : function() {
 
@@ -65,7 +65,7 @@ Ext.define('REALSTATUS.controller.realstatusCtrl', {
 			var chartNET = Ext.getCmp('realstatus_chart_net');
 			// var serviceId = record.get("serviceId");
 			// if(serviceId!=null && serviceId!=""){
-			var url = restPath + path + "findAllStatus?id=1";
+			var url = restPath + path + "findAllStatus?id="+record.get("id");
 //			var url = "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getRealstatusChart.json";
 			wake.ajax({
 						contentType : 'application/json',// 声明提交的数据类型

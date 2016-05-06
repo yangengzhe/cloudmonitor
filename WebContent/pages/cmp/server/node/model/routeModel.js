@@ -9,7 +9,7 @@ Ext.define('NODE.model.RouteModel',{
 		{name : 'code',type:'string'},
 		{name : 'nodeid',type:'int'},
 		{name : 'name',type:'string'},
-		{name : 'superroute',type:'int'},
+		{name : 'superroute',type:'string'},
 		{name : 'desc',type:'string'}
 	]
 })

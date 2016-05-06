@@ -16,6 +16,6 @@ Ext.define('MYSERVER.model.MyserverModel',{
 		{name : 'cpu',type:'int'},
 		{name : 'memory',type:'int'},
 		{name : 'bandwidth',type:'int'},
-		{name : 'superroute',type:'int'}
+		{name : 'superroute',type:'string'}
 	]
 })

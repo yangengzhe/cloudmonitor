@@ -1,7 +1,7 @@
 /**
  * 
  */
-var path = "register/";// 资源请求路径
+var path = "usage/";// 资源请求路径
 var myappData;
 var count = 1;
 Ext.define('USAGE.controller.usageCtrl', {
@@ -28,8 +28,8 @@ Ext.define('USAGE.controller.usageCtrl', {
 					contentType : 'application/json',// 声明提交的数据类型
 					dataType : 'json',// 声明请求的数据类型
 					type : "GET",
-//					url : webRoot + 'rest/webserver/testfunction?menuId='	+ node.get("id"),
-					url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_menu_getChildrenMenu.json",
+					url : restPath + "cmp_menu/" + "getMenuChildren?id="+node.get("id"),
+					//url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstat?us/realstatus_menu_getChildrenMenu.json",
 					timeout : 30000,// 30秒钟的查询超时
 					success : function(data) {
 						if (!Ext.isEmpty(data)) {
@@ -48,8 +48,8 @@ Ext.define('USAGE.controller.usageCtrl', {
 	    	
 	    	if(record.get("leaf")){
 	    		Ext.getCmp('usage_detailForm').getForm().load({
-//	    			url:restPath+'menu/edit/'+record.get("id"),
-		    		url:"http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getServerDetail.json",
+	    			url : restPath + "status/" + "serverDetail?id="+record.get("id"),
+//		    		url:"http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getServerDetail.json",
 	    			method:'GET',
 	    	        success : function() {
 	    	        	
@@ -63,12 +63,12 @@ Ext.define('USAGE.controller.usageCtrl', {
 	    		var chartCPU = Ext.getCmp('usage_chart_cpu');
 	    		var chartMEM = Ext.getCmp('usage_chart_mem');
 	    		var chartNET = Ext.getCmp('usage_chart_net');
-		    		var url = "http://localhost:8080/cloudplatform//pages/cmp/server/usage/usage_getUsageChart.json";
+		    		
 		    		wake.ajax({
 			    		contentType:'application/json',//声明提交的数据类型
 			    		dataType:'json',//声明请求的数据类型
 			    	    type: "GET",
-			    	    url:url,
+			    	    url:restPath + path + "findAllUsage?id="+record.get("id"),
 			    	    timeout:30000,//30秒钟的查询超时
 			    	    success:function(data){
 			    			if(data){
