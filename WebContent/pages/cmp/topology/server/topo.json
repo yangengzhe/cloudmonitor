@@ -1,33 +1,19 @@
 {
-    "total": 4,
+    "total": 2,
     "detal": [
         {
             "id": 0,
             "father": -1,
-            "name": "10.1",
+            "name": "主路由",
             "type": "route",
-            "status":1
+            "status": 1
         },
         {
             "id": 1,
             "father": 0,
-            "name": "10.1.1",
+            "name": "172.24.126.1",
             "type": "server",
-            "status":1
-        },
-        {
-            "id": 2,
-            "father": 0,
-            "name": "10.1.2",
-            "type": "server",
-            "status":1
-        },
-        {
-            "id": 3,
-            "father": 0,
-            "name": "10.1.1.1",
-            "type": "server",
-            "status":0
+            "status": 0
         }
     ]
 }
