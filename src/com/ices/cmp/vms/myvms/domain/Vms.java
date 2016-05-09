@@ -232,4 +232,13 @@ public class Vms implements Serializable{
         query.setParameter("code", code);
         return query.getResultList();
     }
+    
+  //根据serverId查找vm列表，查找当前server下的vm
+    public static List<Vms> findVmsByServerId(Integer serverId) {
+        StringBuffer queryStr = new StringBuffer();
+        queryStr.append("SELECT c FROM Vms c WHERE 1=1 AND c.server.id = :serverId");
+        TypedQuery<Vms> query = em().createQuery(queryStr.toString(), Vms.class);
+        query.setParameter("serverId", serverId);
+        return query.getResultList();
+    }
 }

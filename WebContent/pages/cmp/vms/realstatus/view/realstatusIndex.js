@@ -92,19 +92,19 @@ Ext
 								maxWidth : 250,
 								id : 'realstatus_detailForm_status'
 							}, {
-								fieldLabel : '所在地区',
+								fieldLabel : '所在服务器',
 								name : 'area',
 								minWidth : 100,
 								maxWidth : 250,
 								id : 'realstatus_detailForm_area'
 							}, {
-								fieldLabel : '创建时间',
+								fieldLabel : '虚拟机编号',
 								name : 'gmt_create',
 								minWidth : 100,
 								maxWidth : 250,
 								id : 'realstatus_detailForm_gmtCreate'
 							}, {
-								fieldLabel : '配置信息',
+								fieldLabel : '备注信息',
 								name : 'desc',
 								width : 480,
 								colspan : 2,

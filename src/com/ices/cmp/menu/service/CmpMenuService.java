@@ -12,4 +12,6 @@ import com.ices.cmp.server.node.dto.NodeDto;
 public interface CmpMenuService {
     public List<CmpMenuDto> findAllNode() throws DtoException;
     public List<CmpMenuDto> findServerBynodeId(Integer nodeId) throws DtoException;
+    public List<CmpMenuDto> findVmsBynodeId(Integer nodeId) throws DtoException;
+    public List<CmpMenuDto> findAppBynodeId(Integer nodeId) throws DtoException;
 }

@@ -4,8 +4,8 @@ Ext.define("REALSTATUS.store.MenuStore4Tree",{
 	fields:['id','name','leaf','serviceId'],
 	rootVisible : true,	//显示根节点
 		root: {
-			id: '-1',
-			name: '菜单管理',
+			id: '0',
+			name: '我的应用',
 			expanded: false,
 			leaf: false
 		}

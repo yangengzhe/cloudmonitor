@@ -158,7 +158,7 @@ public class Myapp implements Serializable{
         return query.getResultList();
     }
     
-    //根据
+  //根据
     public static List<Myapp> findByDuplicate(Integer id,String code) {
         StringBuffer queryStr = new StringBuffer();
         queryStr.append("SELECT c FROM Myapp c WHERE 1=1 AND c.code = :code ");
@@ -170,6 +170,15 @@ public class Myapp implements Serializable{
             query.setParameter("id", id);
         }
         query.setParameter("code", code);
+        return query.getResultList();
+    }
+    
+  //根据
+    public static List<Myapp> findByVmId(Integer Vmid) {
+        StringBuffer queryStr = new StringBuffer();
+        queryStr.append("SELECT c FROM Myapp c WHERE 1=1 AND c.vms.id = :Vmid ");
+        TypedQuery<Myapp> query = em().createQuery(queryStr.toString(), Myapp.class);
+        query.setParameter("Vmid", Vmid);
         return query.getResultList();
     }
 }

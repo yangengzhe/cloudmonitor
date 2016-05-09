@@ -29,7 +29,7 @@ Ext.define('REALSTATUS.controller.realstatusCtrl', {
 			type : "GET",
 			// url : webRoot + 'rest/webserver/testfunction?menuId=' +
 			// node.get("id"),
-			url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_menu_getChildrenMenu.json",
+			url : restPath + "cmp_menu/" + "getMenuAppChildren?id="+node.get("id"),
 			timeout : 30000,// 30秒钟的查询超时
 			success : function(data) {
 				if (!Ext.isEmpty(data)) {
