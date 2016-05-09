@@ -98,8 +98,8 @@ Ext.define('MYVMS.view.AddVms', {
 						allowBlank : false,
 						columnWidth : 0.5
 					}, {
-						name : 'serverid',
-						fieldLabel : wake.TEXT.redStar + '服务器ID',
+						name : 'serverCode',
+						fieldLabel : wake.TEXT.redStar + '服务器编码',
 						allowBlank : false,
 						columnWidth : 0.5
 					} ]
@@ -117,8 +117,10 @@ Ext.define('MYVMS.view.AddVms', {
 						name : 'name',
 						fieldLabel : '虚拟机名称'
 					}, {
-						name : 'bandwidth',
-						fieldLabel : '网络带宽'
+						name : 'state',
+						fieldLabel : '状态',
+						xtype : 'wakecombobox',
+						dictUrl : 'com.ices.csp.common.enumitem.ServerState'
 					} ]
 				}, {
 					xtype : 'fieldcontainer',
@@ -148,7 +150,7 @@ Ext.define('MYVMS.view.AddVms', {
 						labelWidth : 80
 					},
 					items : [ {
-						name : 'mem',
+						name : 'memory',
 						fieldLabel : '内存'
 					}, {
 						name : 'disk',
@@ -160,15 +162,18 @@ Ext.define('MYVMS.view.AddVms', {
 					combineErrors : true,
 					defaultType : 'textfield',
 					defaults : {
-						columnWidth : 1,
+						columnWidth : 0.5,
 						labelAlign : 'right',
 						labelWidth : 80
 					},
 					items : [ {
+						name : 'bandwidth',
+						fieldLabel : '网络带宽'
+					}, {
 						name : 'desc',
 						fieldLabel : '说明'
 					} ]
-				} ]
+				}]
 			} ]
 		});
 		return me.form;

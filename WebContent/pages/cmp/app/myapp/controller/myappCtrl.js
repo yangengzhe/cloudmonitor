@@ -1,7 +1,7 @@
 /**
  * 
  */
-var path = "app/";// 资源请求路径
+var path = "my_app/";// 资源请求路径
 var myappData;
 var count = 1;
 Ext.define('MYAPP.controller.MyappCtrl', {
@@ -49,8 +49,8 @@ Ext.define('MYAPP.controller.MyappCtrl', {
 		var param = serverIndex.queryField.getForm().getFieldValues();
 		serverIndex.setLoading(true);
 		var myserverGrid = serverIndex.myappGrid;
-//		var url = restPath + path + "searchServer";//URL
-		var url = "http://localhost:8080/cloudplatform//pages/cmp/app/myapp/myapp_getApp.json";
+		var url = restPath + path + "searchMyapp";//URL
+//		var url = "http://localhost:8080/cloudplatform//pages/cmp/app/myapp/myapp_getApp.json";
 		wake.ajax({
 			contentType : 'application/json',// 声明提交的数据类型
 			dataType : 'json',// 声明请求的数据类型
@@ -62,7 +62,6 @@ Ext.define('MYAPP.controller.MyappCtrl', {
 				if (data) {
 					if (data.appList.length == 0) {
 						Ext.Msg.alert('提示', '没有符合的结果！');
-						control.doQueryServer();
 					} else {
 						myserverGrid.getStore().loadData(data.appList);// 加载表格数据
 					}
@@ -86,8 +85,8 @@ Ext.define('MYAPP.controller.MyappCtrl', {
 		// 获取查询条件
 		var myserverGrid = serverIndex.myappGrid;
 		var pagingBean = myserverGrid.getPageBar().getPagingData();
-//		var url = restPath + path + "findAllServer"+ "?paging="+ Ext.JSON.encode(pagingBean);
-		var url = "http://localhost:8080/cloudplatform//pages/cmp/app/myapp/myapp_getApp.json";
+		var url = restPath + path + "findAllMyapp"+ "?paging="+ Ext.JSON.encode(pagingBean);
+//		var url = "http://localhost:8080/cloudplatform//pages/cmp/app/myapp/myapp_getApp.json";
 		/** 组装请求对象，并调用框架的请求方法发送请求 */
 		wake.ajax({
 			contentType : 'application/json',// 声明提交的数据类型
@@ -160,7 +159,7 @@ Ext.define('MYAPP.controller.MyappCtrl', {
 					contentType : 'application/json',// 声明提交的数据类型
 					dataType : 'json',// 声明请求的数据类型
 					type : "POST",
-					url : restPath + path + "deleteServer",
+					url : restPath + path + "deleteMyapp",
 					data : deleteserverIds,// 将js对象转化为json数据
 					timeout : 30000,
 					success : function(data) {
@@ -191,7 +190,7 @@ Ext.define('MYAPP.controller.MyappCtrl', {
 				contentType : 'application/json',// 声明提交的数据类型
 				dataType : 'json',// 声明请求的数据类型
 				type : "PUT",
-				url : restPath + path + "addServer",
+				url : restPath + path + "addMyapp",
 				data : server,// 将js对象转化为json数据
 				timeout : 30000,// 30秒钟的查询超时
 				success : function(data) {
@@ -218,7 +217,7 @@ Ext.define('MYAPP.controller.MyappCtrl', {
 				contentType : 'application/json',// 声明提交的数据类型
 				dataType : 'json',// 声明请求的数据类型
 				type : "POST",
-				url : restPath + path + "updateServer",
+				url : restPath + path + "updateMyapp",
 				data : server,// 将js对象转化为json数据
 				timeout : 30000,// 30秒钟的查询超时
 				success : function(data) {

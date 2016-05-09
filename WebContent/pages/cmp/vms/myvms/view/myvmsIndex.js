@@ -125,8 +125,8 @@ Ext.define('MYVMS.view.MyvmsIndex', {
 				sortable : true,
 				hidden : true
 			}, {
-				dataIndex : 'serverid',
-				header : '服务器id' ,
+				dataIndex : 'serverCode',
+				header : '服务器Code' ,
 				width : 150,
 				sortable : true,
 				editor : {
@@ -170,7 +170,7 @@ Ext.define('MYVMS.view.MyvmsIndex', {
 					xtype : 'textfield'
 				}
 			},{
-				dataIndex : 'mem',
+				dataIndex : 'memory',
 				header : '内存',
 				width : 150,
 				editor : {

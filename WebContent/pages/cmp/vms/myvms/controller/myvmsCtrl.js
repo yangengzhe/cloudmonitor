@@ -1,7 +1,7 @@
 /**
  * 
  */
-var path = "vms/";// 资源请求路径
+var path = "my_vms/";// 资源请求路径
 var myappData;
 var count = 1;
 Ext.define('MYVMS.controller.MyvmsCtrl', {
@@ -49,8 +49,8 @@ Ext.define('MYVMS.controller.MyvmsCtrl', {
 		var param = serverIndex.queryField.getForm().getFieldValues();
 		serverIndex.setLoading(true);
 		var myserverGrid = serverIndex.myvmsGrid;
-//		var url = restPath + path + "searchServer";//URL
-		var url = "http://localhost:8080/cloudplatform//pages/cmp/vms/myvms/myvms_getVms.json";
+		var url = restPath + path + "searchVms";//URL
+//		var url = "http://localhost:8080/cloudplatform//pages/cmp/vms/myvms/myvms_getVms.json";
 		wake.ajax({
 			contentType : 'application/json',// 声明提交的数据类型
 			dataType : 'json',// 声明请求的数据类型
@@ -62,7 +62,7 @@ Ext.define('MYVMS.controller.MyvmsCtrl', {
 				if (data) {
 					if (data.vmsList.length == 0) {
 						Ext.Msg.alert('提示', '没有符合的结果！');
-						control.doQueryServer();
+						serverIndex.setLoading(false);// 关闭表格遮罩层
 					} else {
 						myserverGrid.getStore().loadData(data.vmsList);// 加载表格数据
 					}
@@ -86,8 +86,8 @@ Ext.define('MYVMS.controller.MyvmsCtrl', {
 		// 获取查询条件
 		var myserverGrid = serverIndex.myvmsGrid;
 		var pagingBean = myserverGrid.getPageBar().getPagingData();
-//		var url = restPath + path + "findAllServer"+ "?paging="+ Ext.JSON.encode(pagingBean);
-		var url = "http://localhost:8080/cloudplatform//pages/cmp/vms/myvms/myvms_getVms.json";
+		var url = restPath + path + "findAllVms"+ "?paging="+ Ext.JSON.encode(pagingBean);
+//		var url = "http://localhost:8080/cloudplatform//pages/cmp/vms/myvms/myvms_getVms.json";
 		/** 组装请求对象，并调用框架的请求方法发送请求 */
 		wake.ajax({
 			contentType : 'application/json',// 声明提交的数据类型
@@ -160,7 +160,7 @@ Ext.define('MYVMS.controller.MyvmsCtrl', {
 					contentType : 'application/json',// 声明提交的数据类型
 					dataType : 'json',// 声明请求的数据类型
 					type : "POST",
-					url : restPath + path + "deleteServer",
+					url : restPath + path + "deleteVms",
 					data : deleteserverIds,// 将js对象转化为json数据
 					timeout : 30000,
 					success : function(data) {
@@ -191,7 +191,7 @@ Ext.define('MYVMS.controller.MyvmsCtrl', {
 				contentType : 'application/json',// 声明提交的数据类型
 				dataType : 'json',// 声明请求的数据类型
 				type : "PUT",
-				url : restPath + path + "addServer",
+				url : restPath + path + "addVms",
 				data : server,// 将js对象转化为json数据
 				timeout : 30000,// 30秒钟的查询超时
 				success : function(data) {
@@ -218,7 +218,7 @@ Ext.define('MYVMS.controller.MyvmsCtrl', {
 				contentType : 'application/json',// 声明提交的数据类型
 				dataType : 'json',// 声明请求的数据类型
 				type : "POST",
-				url : restPath + path + "updateServer",
+				url : restPath + path + "updateVms",
 				data : server,// 将js对象转化为json数据
 				timeout : 30000,// 30秒钟的查询超时
 				success : function(data) {

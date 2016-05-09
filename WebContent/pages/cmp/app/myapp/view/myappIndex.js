@@ -125,8 +125,8 @@ Ext.define('MYAPP.view.MyappIndex', {
 				sortable : true,
 				hidden : true
 			}, {
-				dataIndex : 'vmid',
-				header : '虚拟机id' ,
+				dataIndex : 'vmCode',
+				header : '虚拟机Code' ,
 				width : 150,
 				sortable : true,
 				editor : {

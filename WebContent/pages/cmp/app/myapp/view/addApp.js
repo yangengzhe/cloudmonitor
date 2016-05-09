@@ -98,8 +98,8 @@ Ext.define('MYAPP.view.Addapp', {
 						allowBlank : false,
 						columnWidth : 0.5
 					}, {
-						name : 'vmid',
-						fieldLabel : wake.TEXT.redStar + '虚拟机ID',
+						name : 'vmCode',
+						fieldLabel : wake.TEXT.redStar + '虚拟机Code',
 						allowBlank : false,
 						columnWidth : 0.5
 					} ]
@@ -118,7 +118,9 @@ Ext.define('MYAPP.view.Addapp', {
 						fieldLabel : '应用名称'
 					}, {
 						name : 'state',
-						fieldLabel : '状态'
+						fieldLabel : '状态',
+						xtype : 'wakecombobox',
+						dictUrl : 'com.ices.csp.common.enumitem.ServerState'
 					} ]
 				}, {
 					xtype : 'fieldcontainer',
