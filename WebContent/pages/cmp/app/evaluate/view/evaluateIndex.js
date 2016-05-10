@@ -92,13 +92,13 @@ Ext
 								maxWidth : 250,
 								id : 'evaluate_detailForm_status'
 							}, {
-								fieldLabel : '虚拟机ID',
+								fieldLabel : '应用Code',
 								name : 'area',
 								minWidth : 100,
 								maxWidth : 250,
 								id : 'evaluate_detailForm_area'
 							}, {
-								fieldLabel : '更新时间',
+								fieldLabel : '虚拟机Code',
 								name : 'gmt_create',
 								minWidth : 100,
 								maxWidth : 250,

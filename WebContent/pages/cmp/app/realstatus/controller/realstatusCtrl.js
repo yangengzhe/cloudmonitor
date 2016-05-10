@@ -1,7 +1,7 @@
 /**
  * 
  */
-var path = "register/";// 资源请求路径
+var path = "appstatus/";// 资源请求路径
 var myappData;
 var count = 1;
 Ext.define('REALSTATUS.controller.realstatusCtrl', {
@@ -49,7 +49,7 @@ Ext.define('REALSTATUS.controller.realstatusCtrl', {
 		if (record.get("leaf")) {
 			Ext.getCmp('realstatus_detailForm').getForm().load({
 				// url:restPath+'menu/edit/'+record.get("id"),
-				url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getServerDetail.json",
+				url : restPath + path + "appDetail?id="+record.get("id"),
 				method : 'GET',
 				success : function() {
 
@@ -65,7 +65,7 @@ Ext.define('REALSTATUS.controller.realstatusCtrl', {
 			var chartNET = Ext.getCmp('realstatus_chart_net');
 			// var serviceId = record.get("serviceId");
 			// if(serviceId!=null && serviceId!=""){
-			var url = "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getRealstatusChart.json";
+			var url = restPath + path + "findAllStatus?id="+record.get("id");
 			wake.ajax({
 						contentType : 'application/json',// 声明提交的数据类型
 						dataType : 'json',// 声明请求的数据类型

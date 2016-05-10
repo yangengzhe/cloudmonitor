@@ -1,4 +1,4 @@
-package com.ices.cmp.topology.server.service;
+package com.ices.cmp.topology.vms.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +11,15 @@ import com.ices.cmp.server.myserver.domain.Server;
 import com.ices.cmp.server.myserver.dto.ServerDto;
 import com.ices.cmp.server.route.domain.Route;
 import com.ices.cmp.topology.server.dto.TopoServerDto;
+import com.ices.cmp.vms.myvms.domain.Vms;
+import com.ices.cmp.vms.myvms.dto.VmsDto;
+import com.ices.cmp.vms.myvms.service.VmsService;
 @Service
-public class TopoServerImpl implements TopoServer {
+public class TopoVmsServiceImpl implements TopoVmsService {
 
     @Override
-    public List<TopoServerDto> getServerTopo(ServerDto server) throws DtoException {
+    public List<TopoServerDto> getServerTopo(VmsDto vms) throws DtoException {
+        Server server = Server.findByDuplicate(null, vms.getServerCode()).get(0);
         String superroute = server.getSuperroute();
         List<Server> list =Server.findBySuperroute(superroute);
         List<TopoServerDto> resultlist = new ArrayList<TopoServerDto>();
@@ -56,20 +60,40 @@ public class TopoServerImpl implements TopoServer {
             }
         }
         
-//        int id = father+1;
+        Server father_server = null;
+        int temp_father = -1;
         for (Server temp : list) {
             TopoServerDto topo = new TopoServerDto();
             topo.setFather(father);
             topo.setId(id);
             topo.setName(temp.getIp());
-            if(temp.getId().equals(server.getId()))
+            if(temp.getId().equals(server.getId())){
                 topo.setStatus(0);
+                father_server=temp;
+                temp_father = id;
+            }
             else
                 topo.setStatus(1);
             topo.setType("server");
             id++;
             resultlist.add(topo);
         }
+        //反差添加vm
+        List<Vms> vmslist= Vms.findVmsByServerId(father_server.getId());
+        for(Vms vm:vmslist){
+            TopoServerDto topo = new TopoServerDto();
+            topo.setFather(temp_father);
+            topo.setId(id);
+            topo.setName(vm.getName());
+            if(vm.getId().equals(vms.getId()))
+                topo.setStatus(0);
+            else
+                topo.setStatus(1);
+            topo.setType("vm");
+            id++;
+            resultlist.add(topo);
+        }
+        
         return resultlist;
     }
 

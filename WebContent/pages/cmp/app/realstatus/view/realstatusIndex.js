@@ -92,13 +92,13 @@ Ext
 								maxWidth : 250,
 								id : 'realstatus_detailForm_status'
 							}, {
-								fieldLabel : '虚拟机ID',
+								fieldLabel : '应用Code',
 								name : 'area',
 								minWidth : 100,
 								maxWidth : 250,
 								id : 'realstatus_detailForm_area'
 							}, {
-								fieldLabel : '更新时间',
+								fieldLabel : '虚拟机Code',
 								name : 'gmt_create',
 								minWidth : 100,
 								maxWidth : 250,
@@ -152,7 +152,7 @@ Ext
 							axes : [ {
 								type : 'Numeric',
 								position : 'left',
-								fields : [ 'cpu' ],
+								fields : [ 'responsetime' ],
 								minimum : 0,
 								maximum : 100
 							}, {
@@ -164,14 +164,14 @@ Ext
 							series : [ {
 								type : 'line',
 								xField : 'date',
-								yField : 'cpu',
+								yField : 'responsetime',
 								title : [ '响应时间(s)' ],
 								tips: {
 									trackMouse: true,
 									width: 100, 
 									height: 18, 
 									renderer: function(storeItem, item) {
-										this.setTitle(storeItem.get('date') + ' ' + storeItem.get('cpu') + '%' );  
+										this.setTitle(storeItem.get('date') + ' ' + storeItem.get('responsetime') + '%' );  
 									}
 								} 
 							} ],
@@ -193,7 +193,7 @@ Ext
 							axes : [ {
 								type : 'Numeric',
 								position : 'left',
-								fields : [ 'mem' ],
+								fields : [ 'memory' ],
 								minimum : 0,
 //								maximum : 100
 							}, {
@@ -205,14 +205,14 @@ Ext
 							series : [ {
 								type : 'line',
 								xField : 'date',
-								yField : 'mem',
+								yField : 'memory',
 								title : [ '已用内存(M)' ],
 								tips: {
 									trackMouse: true,
 									width: 100, 
 									height: 18, 
 									renderer: function(storeItem, item) {
-										this.setTitle(storeItem.get('date') + ' ' + storeItem.get('mem') + 'M' );  
+										this.setTitle(storeItem.get('date') + ' ' + storeItem.get('memory') + 'M' );  
 									}
 								} 
 							} ],
@@ -234,7 +234,7 @@ Ext
 							axes : [ {
 								type : 'Numeric',
 								position : 'left',
-								fields : [ 'net_upload','net_download' ],
+								fields : [ 'concurrent' ],
 								minimum : 0
 							}, {
 								title : '并发情况',
@@ -242,31 +242,18 @@ Ext
 								position : 'bottom',
 								fields : [ 'date' ]
 							} ],
-							series : [ {
-								type : 'line',
-								xField : 'date',
-								yField :  'net_upload',
-								title : [ '上行速率(k/s)'],
-								tips: {
-									trackMouse: true,
-									width: 100, 
-									height: 18, 
-									renderer: function(storeItem, item) {
-										this.setTitle(storeItem.get('date') + ' ' + storeItem.get('net_upload') + 'k/s' );  
-									}
-								}   
-							},
+							series : [ 
 							{
 								type : 'line',
 								xField : 'date',
-								yField :  'net_download',
-								title : [ '下行速率(k/s)' ],
+								yField :  'concurrent',
+								title : [ '并发数' ],
 								tips: {
 									trackMouse: true,
 									width: 100, 
 									height: 18, 
 									renderer: function(storeItem, item) {
-										this.setTitle(storeItem.get('date') + ' ' + storeItem.get('net_download') + 'k/s' );  
+										this.setTitle(storeItem.get('date') + ' ' + storeItem.get('concurrent') );  
 									}
 								}
 							}],

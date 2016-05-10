@@ -1,7 +1,7 @@
 /**
  * 
  */
-var path = "register/";// 资源请求路径
+var path = "evaluate/";// 资源请求路径
 var myappData;
 var count = 1;
 Ext.define('EVALUATE.controller.evaluateCtrl', {
@@ -35,7 +35,7 @@ Ext.define('EVALUATE.controller.evaluateCtrl', {
 			type : "GET",
 			// url : webRoot + 'rest/webserver/testfunction?menuId=' +
 			// node.get("id"),
-			url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_menu_getChildrenMenu.json",
+			url :  restPath + "cmp_menu/" + "getMenuAppChildren?id="+node.get("id"),
 			timeout : 30000,// 30秒钟的查询超时
 			success : function(data) {
 				if (!Ext.isEmpty(data)) {
@@ -55,7 +55,7 @@ Ext.define('EVALUATE.controller.evaluateCtrl', {
 		if (record.get("leaf")) {
 			Ext.getCmp('evaluate_detailForm').getForm().load({
 				// url:restPath+'menu/edit/'+record.get("id"),
-				url : "http://localhost:8080/cloudplatform//pages/cmp/server/realstatus/realstatus_getServerDetail.json",
+				url : restPath + path + "appDetail?id="+record.get("id"),
 				method : 'GET',
 				success : function() {
 
@@ -67,7 +67,7 @@ Ext.define('EVALUATE.controller.evaluateCtrl', {
 			// 显示折线图
 			Ext.getCmp('evaluate_chartsContent').setVisible(true);
 			var chartNET = Ext.getCmp('evaluate_chart_net');
-			var url = "http://localhost:8080/cloudplatform//pages/cmp/app/evaluate/evaluate_getEvaluateChart.json";
+			var url = restPath + path + "findAllStatus?id="+record.get("id");
 			wake.ajax({
 						contentType : 'application/json',// 声明提交的数据类型
 						dataType : 'json',// 声明请求的数据类型
