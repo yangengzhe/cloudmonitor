@@ -19,7 +19,7 @@ public class EvaluateDto {
     @DtoProperty(entityClass = Evaluate.class)
     private Integer memory;//服务器id
     
-    @DtoProperty(entityClass = Evaluate.class)
+    @DtoProperty(entityClass = Evaluate.class,entityProperty="concurrent")
     private Integer concurrent;//服务器id
     
     @DtoProperty(entityClass = Evaluate.class)
@@ -70,14 +70,18 @@ public class EvaluateDto {
         this.memory = memory;
     }
     
+    
+
+    
     public Integer getConcurrent() {
         return concurrent;
     }
+
     
     public void setConcurrent(Integer concurrent) {
         this.concurrent = concurrent;
     }
-    
+
     public Integer getNet() {
         return net;
     }

@@ -150,81 +150,81 @@ Ext
 							axes : [ {
 								type : 'Numeric',
 								position : 'left',
-								fields : [ 'ResponseTime','Memory','Net','Error','Thoughput' ],
+								fields : [ 'responsetime','memory','net','error','thoughput' ],
 								minimum : 0
 							}, {
 								title : '资源评估模型',
 								type : 'Category',
 								position : 'bottom',
-								fields : [ 'Concurrent' ]
+								fields : [ 'concurrent' ]
 							} ],
 							series : [ {
 								type : 'line',
-								xField : 'Concurrent',
-								yField :  'ResponseTime',
+								xField : 'concurrent',
+								yField :  'responsetime',
 								title : [ '响应时间(s)'],
 								tips: {
 									trackMouse: true,
 									width: 100, 
 									height: 18, 
 									renderer: function(storeItem, item) {
-										this.setTitle(storeItem.get('ResponseTime') + 's' );  
+										this.setTitle(storeItem.get('responsetime') + 's' );  
 									}
 								}   
 							},
 							{
 								type : 'line',
-								xField : 'Concurrent',
-								yField :  'Memory',
+								xField : 'concurrent',
+								yField :  'memory',
 								title : [ '内存(m)'],
 								tips: {
 									trackMouse: true,
 									width: 100, 
 									height: 18, 
 									renderer: function(storeItem, item) {
-										this.setTitle(storeItem.get('Memory') + 'm' );  
+										this.setTitle(storeItem.get('memory') + 'm' );  
 									}
 								}   
 							},
 							{
 								type : 'line',
-								xField : 'Concurrent',
-								yField :  'Net',
+								xField : 'concurrent',
+								yField :  'net',
 								title : [ '网络速率(k/s)'],
 								tips: {
 									trackMouse: true,
 									width: 100, 
 									height: 18, 
 									renderer: function(storeItem, item) {
-										this.setTitle(storeItem.get('Net') + 'k/s' );  
+										this.setTitle(storeItem.get('net') + 'k/s' );  
 									}
 								}   
 							},
 							{
 								type : 'line',
-								xField : 'Concurrent',
-								yField :  'Error',
+								xField : 'concurrent',
+								yField :  'error',
 								title : [ '错误率(%)'],
 								tips: {
 									trackMouse: true,
 									width: 100, 
 									height: 18, 
 									renderer: function(storeItem, item) {
-										this.setTitle(storeItem.get('Error') + '%' );  
+										this.setTitle(storeItem.get('error') + '%' );  
 									}
 								}   
 							},
 							{
 								type : 'line',
-								xField : 'Concurrent',
-								yField :  'Thoughput',
+								xField : 'concurrent',
+								yField :  'thoughput',
 								title : [ '吞吐率(k/s)'],
 								tips: {
 									trackMouse: true,
 									width: 100, 
 									height: 18, 
 									renderer: function(storeItem, item) {
-										this.setTitle(storeItem.get('Thoughput') + 'k/s' );  
+										this.setTitle(storeItem.get('thoughput') + 'k/s' );  
 									}
 								}   
 							}],
@@ -300,14 +300,6 @@ Ext
 								sortable : true,
 								hidden : true
 							}, {
-								dataIndex : 'code',
-								header : '编码' ,
-								width : 150,
-								sortable : true,
-								editor : {
-									xtype : 'textfield'
-								}
-							}, {
 								dataIndex : 'appid',
 								header : '应用ID' ,
 								width : 150,
@@ -316,9 +308,17 @@ Ext
 									xtype : 'textfield'
 								}
 							}, {
-								dataIndex : 'type',
-								header : '类别',
+								dataIndex : 'state',
+								header : '状态',
 								width : 150,
+								editor : {
+									xtype : 'textfield'
+								}
+							}, {
+								dataIndex : 'code',
+								header : '错误编码' ,
+								width : 150,
+								sortable : true,
 								editor : {
 									xtype : 'textfield'
 								}
@@ -332,6 +332,13 @@ Ext
 							},{
 								dataIndex : 'desc',
 								header : '说明',
+								width : 150,
+								editor : {
+									xtype : 'textfield'
+								}
+							},{
+								dataIndex : 'date',
+								header : '时间',
 								width : 150,
 								editor : {
 									xtype : 'textfield'

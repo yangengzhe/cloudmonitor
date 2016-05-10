@@ -55,7 +55,7 @@ Ext.define('EVALUATE.controller.evaluateCtrl', {
 		if (record.get("leaf")) {
 			Ext.getCmp('evaluate_detailForm').getForm().load({
 				// url:restPath+'menu/edit/'+record.get("id"),
-				url : restPath + path + "appDetail?id="+record.get("id"),
+				url : restPath + "appstatus/" + "appDetail?id="+record.get("id"),
 				method : 'GET',
 				success : function() {
 
@@ -96,8 +96,8 @@ Ext.define('EVALUATE.controller.evaluateCtrl', {
 		// 获取查询条件
 		var nodeGrid = nodeIndex.alertGrid;
 		var pagingBean = nodeGrid.getPageBar().getPagingData();
-//		var url = restPath + path + "findAllNode"+ "?paging="+ Ext.JSON.encode(pagingBean);
-		var url = "http://localhost:8080/cloudplatform//pages/cmp/app/evaluate/evaluate_getAlert.json";
+		var url = restPath + path + "findAllAlert"+ "?paging="+ Ext.JSON.encode(pagingBean);
+//		var url = "http://localhost:8080/cloudplatform//pages/cmp/app/evaluate/evaluate_getAlert.json";
 		/** 组装请求对象，并调用框架的请求方法发送请求 */
 		wake.ajax({
 			contentType : 'application/json',// 声明提交的数据类型
@@ -146,7 +146,7 @@ Ext.define('EVALUATE.controller.evaluateCtrl', {
 						contentType : 'application/json',// 声明提交的数据类型
 						dataType : 'json',// 声明请求的数据类型
 						type : "POST",
-						url : restPath + path + "signNode",
+						url : restPath + path + "updateAlert",
 						data : deletenodeIds,// 将js对象转化为json数据
 						timeout : 30000,
 						success : function(data) {
@@ -188,7 +188,7 @@ Ext.define('EVALUATE.controller.evaluateCtrl', {
 						contentType : 'application/json',// 声明提交的数据类型
 						dataType : 'json',// 声明请求的数据类型
 						type : "POST",
-						url : restPath + path + "deleteNode",
+						url : restPath + path + "deleteAlert",
 						data : deletenodeIds,// 将js对象转化为json数据
 						timeout : 30000,
 						success : function(data) {

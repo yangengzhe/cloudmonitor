@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.ices.cmp.app.status.domain.Appstatus;
 import com.ices.cmp.app.status.dto.AppstatusDto;
-import com.ices.cmp.server.status.domain.Status;
-import com.ices.cmp.server.status.dto.StatusDto;
 
 @Service
 public class AppstatusServiceImpl implements AppstatusService {
